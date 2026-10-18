@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SENTINEL JOB-GUARD | AI Fake Job & Internship Decision-Support System</title>
+  <meta name="description" content="Advanced AI Decision-Support System for detecting fraudulent jobs and internships with hybrid ML, rule-based analytics, and domain verification.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Animatic Particle Canvas Background -->
+  <canvas id="anim-canvas"></canvas>
+
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-maroon"></div>
+  <div class="ambient-glow glow-gold"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    
+    <!-- Top Navigation Header -->
+    <header class="cyber-header">
+      <div class="header-container">
+        <div class="brand-logo" onclick="app.navigate('home')">
+          <div class="logo-shield">
+            <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+              <path d="M9 12l2 2 4-4" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="shield-pulse"></span>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">SENTINEL<span class="accent-text">GUARD</span></div>
+            <div class="brand-subtitle">AI JOB SCAM DECISION-SUPPORT SYSTEM</div>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+          <button class="nav-item active" data-page="home" onclick="app.navigate('home')">
+            <span class="nav-icon">⬡</span> Overview
+          </button>
+          <button class="nav-item" data-page="analyze" onclick="app.navigate('analyze')">
+            <span class="nav-icon">◈</span> Job Analyzer
+          </button>
+          <button class="nav-item" data-page="dashboard" onclick="app.navigate('dashboard')">
+            <span class="nav-icon">▣</span> History & Vault
+          </button>
+          <button class="nav-item" data-page="education" onclick="app.navigate('education')">
+            <span class="nav-icon">◉</span> Scam Hub
+          </button>
+          <button class="nav-item" data-page="report" onclick="app.navigate('report')">
+            <span class="nav-icon">▲</span> Report Listing
+          </button>
+          <button class="nav-item admin-nav" data-page="admin" onclick="app.navigate('admin')">
+            <span class="nav-icon">⚡</span> Admin Ops
+          </button>
+        </nav>
+
+        <!-- Right AI Voice & Controls Bar -->
+        <div class="header-actions">
+          <!-- AI Voice Assistant Toggle -->
+          <button id="voice-assistant-btn" class="cyber-btn voice-btn" title="Toggle AI Voice Recognition & Commands" onclick="voiceAssistant.toggleListening()">
+            <span class="mic-dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <span class="voice-label" id="voice-status-text">AI Voice Ready</span>
+          </button>
+
+          <!-- Audio FX Mute Toggle -->
+          <button id="sound-toggle-btn" class="icon-toggle-btn" title="Toggle Cyber Audio Synthesizer" onclick="audioEngine.toggleMute()">
+            <svg class="icon" id="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </button>
+
+          <!-- Status Indicator -->
+          <div class="system-status-chip">
+            <span class="pulse-indicator"></span>
+            <span class="status-name">ML v2.4 Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Scam Alert Ticker -->
+      <div class="cyber-ticker">
+        <div class="ticker-badge">LIVE INTEL</div>
+        <div class="ticker-content" id="ticker-text">
+          <span>⚠️ Surge in Telegram task-based data entry job scams detected this week</span>
+          <span class="ticker-sep">|</span>
+          <span>⚡ 94.2% fraud detection accuracy on unverified recruiter domains</span>
+          <span class="ticker-sep">|</span>
+          <span>🚨 Remember: Legitimate companies NEVER demand registration or training security deposits</span>
+          <span class="ticker-sep">|</span>
+          <span>🔒 Decision-Support Protocol: Always verify through company career portal</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main id="main-content" class="content-viewport">
+
+      <!-- ========================================================
+           PAGE 1: HOME / OVERVIEW
+      ======================================================== -->
+      <section id="page-home" class="view-page active">
+        <div class="hero-section">
+          <div class="hero-badge">
+            <span class="badge-glow"></span>
+            <span>NEXT-GEN ACADEMIC DECISION-SUPPORT FRAMEWORK</span>
+          </div>
+          <h1 class="hero-title">
+            Analyze Job Legitimacy <br>
+            <span class="gradient-text-blue-gold">Before You Share Data or Money</span>
+          </h1>
+          <p class="hero-desc">
+            SentinelGuard is an AI-powered decision support system that analyzes job and internship postings using
+            <strong>NLP linguistic analysis</strong>, <strong>rule-based scam heuristics</strong>, and <strong>company domain verification</strong>. 
+            We calculate an objective risk score with transparent warning signs to keep students safe.
+          </p>
+
+          <div class="hero-cta-group">
+            <button class="cyber-btn primary-glow-btn" onclick="app.navigate('analyze')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Analyze a Job Post Now</span>
+              <span class="keyboard-hint">Alt + A</span>
+            </button>
+            <button class="cyber-btn secondary-btn" onclick="app.loadPreset('scam_telegram')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span>Test Live Scam Example</span>
+            </button>
+            <a href="SentinelGuard_Project_Files.zip" download class="cyber-btn speech-btn" title="Download the full complete source code ZIP archive">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download Project ZIP</span>
+            </a>
+          </div>
+
+          <!-- Quick Metrics Bar -->
+          <div class="hero-stats-grid">
+            <div class="stat-card">
+              <div class="stat-val gold-val">0 - 100</div>
+              <div class="stat-lbl">Calibrated Risk Index</div>
+              <div class="stat-meta">Transparent 3-tier weighting</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val blue-val">12+</div>
+              <div class="stat-lbl">Heuristic Rule Engines</div>
+              <div class="stat-meta">Fee, domain & messaging traps</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val maroon-val">TF-IDF + ML</div>
+              <div class="stat-lbl">Linguistic Classifier</div>
+              <div class="stat-meta">Trained on real scam corpora</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val green-val">100%</div>
+              <div class="stat-lbl">Transparent Reasoning</div>
+              <div class="stat-meta">Decision support, not opaque bans</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Architecture & Pillar Highlights -->
+        <div class="section-container">
+          <div class="section-header-centered">
+            <span class="sub-heading">HYBRID TRIANGULATION ARCHITECTURE</span>
+            <h2 class="section-title">How SentinelGuard Evaluates Risk</h2>
+            <p class="section-subtitle">No single signal determines fraud. Three specialized evaluation layers inspect every post.</p>
+          </div>
+
+          <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <div class="pillar-card border-blue">
+              <div class="pillar-icon-box blue-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <div class="pillar-weight">WEIGHT: 30%</div>
+              <h3 class="pillar-title">Rule-Based Heuristics</h3>
+              <p class="pillar-text">
+                Evaluates concrete red flags: free email providers (Gmail/Yahoo for corporate positions), upfront training fees, 
+                urgency phrasing ("Join immediately"), and external messaging (Telegram/WhatsApp).
+              </p>
+              <ul class="pillar-list">
+                <li>✓ Payment & Security deposit detection</li>
+                <li>✓ Suspicious shortened URLs</li>
+                <li>✓ Sensitive ID & banking requests</li>
+              </ul>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="pillar-card border-maroon">
+              <div class="pillar-icon-box maroon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+              </div>
+              <div class="pillar-weight">WEIGHT: 50%</div>
+              <h3 class="pillar-title">Machine Learning NLP</h3>
+              <p class="pillar-text">
+                TF-IDF vectorizer paired with a calibrated Logistic Regression classifier evaluates syntactic patterns, 
+                excessive promises, copy-pasted templates, and deceptive wording against verified fraud corpora.
+              </p>
+              <ul class="pillar-list">
+                <li>✓ Syntactic anomaly analysis</li>
+                <li>✓ Unrealistic compensation ratios</li>
+                <li>✓ Probability score calibration</li>
+              </ul>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="pillar-card border-gold">
+              <div class="pillar-icon-box gold-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </div>
+              <div class="pillar-weight">WEIGHT: 20%</div>
+              <h3 class="pillar-title">Domain & Community Trust</h3>
+              <p class="pillar-text">
+                Cross-references the company domain with recruiter contact info, SSL security, student community scam reports, 
+                and known domain blacklists to detect impersonation.
+              </p>
+              <ul class="pillar-list">
+                <li>✓ Recruiter email vs official domain match</li>
+                <li>✓ Community verified scam reports</li>
+                <li>✓ Domain age and HTTPS validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Common Scam Alerts Showcase -->
+        <div class="section-container">
+          <div class="section-header-centered">
+            <span class="sub-heading">CRITICAL WARNING PATTERNS</span>
+            <h2 class="section-title">Common Student Traps to Watch For</h2>
+          </div>
+
+          <div class="scam-cards-grid">
+            <div class="scam-type-card danger-card">
+              <div class="scam-badge">CRITICAL RISK</div>
+              <h4>"Registration Fee" or "Laptop Deposit"</h4>
+              <p>The recruiter requests money for onboarding equipment, background verification, or training material. Real employers NEVER charge candidates.</p>
+            </div>
+            <div class="scam-type-card warning-card">
+              <div class="scam-badge">HIGH RISK</div>
+              <h4>Interviews on Telegram / WhatsApp Only</h4>
+              <p>Scammers avoid official company video tools (Teams, Zoom, Google Meet) and send questionnaires or text-only interviews on messaging platforms.</p>
+            </div>
+            <div class="scam-type-card alert-card">
+              <div class="scam-badge">MEDIUM RISK</div>
+              <h4>Free Webmail for "Fortune 500" Recruiters</h4>
+              <p>An email like <code>google.recruitment.team@gmail.com</code> or <code>infosys.careers@hotmail.com</code> is an immediate indicator of impersonation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 2: JOB ANALYSIS SUBMISSION & WORKBENCH
+      ======================================================== -->
+      <section id="page-analyze" class="view-page">
+        <div class="page-title-bar">
+          <div>
+            <h2 class="view-heading">Job Posting Risk Analyzer</h2>
+            <p class="view-sub">Submit job details for real-time hybrid ML, rule-based & domain verification.</p>
+          </div>
+          <!-- Sample Loaders -->
+          <div class="sample-actions">
+            <span class="sample-label">Load Test Pre-fills:</span>
+            <button class="sample-btn danger-tag" onclick="app.loadPreset('scam_fee')">⚠️ Registration Fee Scam</button>
+            <button class="sample-btn warning-tag" onclick="app.loadPreset('scam_telegram')">🚨 Telegram Task Scam</button>
+            <button class="sample-btn safe-tag" onclick="app.loadPreset('safe_corporate')">🛡️ Legitimate Tech Job</button>
+            <button class="sample-btn info-tag" onclick="app.loadPreset('startup_unverified')">🔍 Startup (Medium Risk)</button>
+          </div>
+        </div>
+
+        <div class="analyzer-grid">
+          <!-- Left Column: Input Form -->
+          <div class="card-glass form-card">
+            <div class="card-header">
+              <div class="header-title-wrap">
+                <span class="header-badge">FORM INPUTS</span>
+                <h3>Job & Recruiter Information</h3>
+              </div>
+              <!-- Voice Dictation Button in Form Header -->
+              <button class="cyber-btn voice-form-btn" id="voice-dictate-btn" onclick="voiceAssistant.startDictation()" title="Click to speak your job description via microphone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                <span id="dictation-btn-label">Voice Dictate</span>
+              </button>
+            </div>
+
+            <form id="job-analysis-form" onsubmit="app.handleAnalyzeSubmit(event)">
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label for="input-title">Job Title <span class="required">*</span></label>
+                  <input type="text" id="input-title" class="cyber-input" placeholder="e.g. Data Entry Specialist / Junior Python Developer" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-company">Company Name <span class="required">*</span></label>
+                  <input type="text" id="input-company" class="cyber-input" placeholder="e.g. Acme Tech Solutions" required>
+                </div>
+              </div>
+
+              <div class="form-row three-col">
+                <div class="form-group">
+                  <label for="input-salary">Stated Salary / Stipend</label>
+                  <input type="text" id="input-salary" class="cyber-input" placeholder="e.g. $4,500/week or ₹85,000/month">
+                </div>
+                <div class="form-group">
+                  <label for="input-location">Location</label>
+                  <input type="text" id="input-location" class="cyber-input" placeholder="e.g. Remote / New York, NY">
+                </div>
+                <div class="form-group">
+                  <label for="input-worktype">Work Mode</label>
+                  <select id="input-worktype" class="cyber-select">
+                    <option value="remote">Remote (Work from Home)</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="onsite">On-Site Office</option>
+                    <option value="unspecified">Unspecified</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label for="input-email">Recruiter Email <span class="tooltip-info" title="We check if the domain matches the official company domain">(Domain Verification)</span></label>
+                  <input type="email" id="input-email" class="cyber-input" placeholder="e.g. hrdepartment@gmail.com or hr@company.com">
+                </div>
+                <div class="form-group">
+                  <label for="input-url">Application / Posting URL</label>
+                  <input type="url" id="input-url" class="cyber-input" placeholder="e.g. https://bit.ly/job-apply or https://careers.company.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label-with-counter">
+                  <label for="input-description">Full Job Description & Recruiter Message <span class="required">*</span></label>
+                  <span class="char-count" id="desc-char-count">0 characters</span>
+                </div>
+                <textarea id="input-description" class="cyber-textarea" rows="8" placeholder="Paste the complete job post, requirements, salary promises, or email message received here..." required oninput="app.updateCharCount(this)"></textarea>
+              </div>
+
+              <!-- Evidence / Screenshot Upload Area -->
+              <div class="form-group">
+                <label>Screenshot / Evidence Upload <span class="opt-label">(Optional OCR & Attachment)</span></label>
+                <div class="file-dropzone" id="evidence-dropzone" onclick="document.getElementById('evidence-file-input').click()">
+                  <input type="file" id="evidence-file-input" accept="image/*,.pdf" style="display:none;" onchange="app.handleFileUpload(this)">
+                  <div class="dropzone-content" id="dropzone-status">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p class="dropzone-text">Click or drag screenshot of email/offer/chat here</p>
+                    <span class="dropzone-hint">PNG, JPG, PDF up to 5MB (Metadata auto-sanitized)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-footer-actions">
+                <button type="button" class="cyber-btn secondary-btn" onclick="app.clearAnalysisForm()">
+                  <span>Clear Fields</span>
+                </button>
+                <button type="submit" class="cyber-btn primary-glow-btn analyze-submit-btn" id="analyze-submit-button">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>EXECUTE RISK ANALYSIS</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Interactive Quick Hints & Detection Rules Info -->
+          <div class="analyzer-sidebar">
+            <div class="card-glass hint-card">
+              <div class="hint-title">
+                <span class="neon-dot-blue"></span>
+                <span>Active Rule Engines</span>
+              </div>
+              <ul class="rule-hint-list">
+                <li><strong class="color-gold">Free Email Check:</strong> Detects @gmail, @yahoo, @proton, @outlook on corporate job posts.</li>
+                <li><strong class="color-crimson">Payment Demands:</strong> Flags keywords like "security deposit," "interview fee," "laptop purchase."</li>
+                <li><strong class="color-crimson">Off-Platform Comms:</strong> Flags invites to Telegram handles, WhatsApp-only numbers, or Skype text interviews.</li>
+                <li><strong class="color-blue">Domain Mismatch:</strong> Compares company website with the recruiter's email domain.</li>
+                <li><strong class="color-gold">Salary Outliers:</strong> Evaluates compensation claims exceeding standard entry-level benchmarks by >300%.</li>
+                <li><strong class="color-blue">ML TF-IDF Model:</strong> Evaluates urgency keywords, vague duties, and fraudulent syntactic patterns.</li>
+              </ul>
+            </div>
+
+            <div class="card-glass ai-voice-card">
+              <div class="voice-card-header">
+                <div class="sound-wave" id="visual-soundwave">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <h4>AI Voice Control</h4>
+              </div>
+              <p class="voice-card-text">
+                Try speaking commands directly to the browser:
+              </p>
+              <div class="voice-command-pills">
+                <code>"Analyze this job"</code>
+                <code>"Load scam example"</code>
+                <code>"Clear form"</code>
+                <code>"Read report aloud"</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 3: RISK ANALYSIS RESULTS
+      ======================================================== -->
+      <section id="page-result" class="view-page">
+        <div class="result-header-bar">
+          <div>
+            <div class="back-link" onclick="app.navigate('analyze')">← Back to Analyzer</div>
+            <h2 class="view-heading">Comprehensive Risk Assessment</h2>
+            <p class="view-sub" id="result-timestamp">Analysis ID: #SG-84920 • Evaluated just now</p>
+          </div>
+          <div class="result-top-actions">
+            <!-- Read Verdict Aloud via Text-to-Speech -->
+            <button class="cyber-btn speech-btn" onclick="voiceAssistant.speakAssessment()" id="speak-verdict-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+              <span>Read AI Summary Aloud</span>
+            </button>
+            <button class="cyber-btn danger-outline-btn" onclick="app.openReportModalFromCurrent()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>Report Suspicious Listing</span>
+            </button>
+            <button class="cyber-btn secondary-btn" onclick="app.saveCurrentToVault()">
+              <span>Save to History</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Risk Score Hero Card -->
+        <div class="result-hero-card" id="result-hero-box">
+          <div class="risk-meter-container">
+            <!-- Radial SVG Gauge Meter -->
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 200 200">
+                <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
+                <circle class="gauge-fill" id="gauge-progress-circle" cx="100" cy="100" r="80"></circle>
+              </svg>
+              <div class="gauge-center-content">
+                <div class="gauge-score" id="gauge-score-value">--</div>
+                <div class="gauge-sub">RISK INDEX</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="risk-meta-details">
+            <div class="risk-tier-badge" id="risk-tier-badge">CALCULATING...</div>
+            <h3 class="risk-headline" id="risk-headline">Running hybrid evaluation triangulation...</h3>
+            <p class="risk-executive-summary" id="risk-executive-summary">
+              Analyzing text syntax, recruiter domain veracity, fee requests, and community databases.
+            </p>
+
+            <div class="triangulation-breakdown">
+              <div class="tri-item">
+                <span class="tri-label">Rule-Based Score (30%)</span>
+                <div class="tri-bar-bg"><div class="tri-bar-fill" id="bar-rule" style="width: 0%"></div></div>
+                <span class="tri-val" id="val-rule">0/100</span>
+              </div>
+              <div class="tri-item">
+                <span class="tri-label">ML NLP Linguistic (50%)</span>
+                <div class="tri-bar-bg"><div class="tri-bar-fill" id="bar-ml" style="width: 0%"></div></div>
+                <span class="tri-val" id="val-ml">0/100</span>
+              </div>
+              <div class="tri-item">
+                <span class="tri-label">Domain Reputation (20%)</span>
+                <div class="tri-bar-bg"><div class="tri-bar-fill" id="bar-domain" style="width: 0%"></div></div>
+                <span class="tri-val" id="val-domain">0/100</span>
+              </div>
+              <div class="tri-item">
+                <span class="tri-label">Algorithm Confidence</span>
+                <span class="confidence-tag" id="val-confidence">--%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Column Grid for Signals and Positive Checks -->
+        <div class="signals-grid">
+          <!-- Detected Warning Signs -->
+          <div class="card-glass signals-card">
+            <div class="card-header">
+              <div class="header-title-wrap">
+                <span class="danger-dot"></span>
+                <h3>Detected Warning Signs & Heuristic Triggers</h3>
+              </div>
+              <span class="signal-count-badge" id="warning-count-badge">0 Signs</span>
+            </div>
+            <div class="signals-list" id="warning-signals-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Trust Signals & Verification -->
+          <div class="card-glass trust-card">
+            <div class="card-header">
+              <div class="header-title-wrap">
+                <span class="safe-dot"></span>
+                <h3>Positive Trust & Verification Signals</h3>
+              </div>
+              <span class="signal-count-badge safe-count" id="trust-count-badge">0 Signals</span>
+            </div>
+            <div class="signals-list" id="trust-signals-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended Action Steps & Safety Protocol -->
+        <div class="card-glass recommendations-card">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="gold-dot"></span>
+              <h3>Decision-Support: Recommended Next Actions for the Student</h3>
+            </div>
+          </div>
+          <div class="recommendations-grid" id="recommendations-container">
+            <!-- Dynamically populated based on score -->
+          </div>
+        </div>
+
+        <!-- User Feedback / Validation Loop -->
+        <div class="card-glass feedback-card">
+          <div class="feedback-content">
+            <div>
+              <h4>Was this decision-support assessment helpful?</h4>
+              <p>Your feedback helps our team refine ML feature weights and reduce false positives.</p>
+            </div>
+            <div class="feedback-actions">
+              <button class="feedback-btn" onclick="app.submitFeedback('accurate')">👍 Accurate & Helpful</button>
+              <button class="feedback-btn" onclick="app.submitFeedback('false_positive')">⚠️ False Alarm (Real Job)</button>
+              <button class="feedback-btn" onclick="app.submitFeedback('missed_scam')">🚨 Missed Scam Signs</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 4: STUDENT DASHBOARD / HISTORY & SAVED
+      ======================================================== -->
+      <section id="page-dashboard" class="view-page">
+        <div class="page-title-bar">
+          <div>
+            <h2 class="view-heading">Student Verification Vault</h2>
+            <p class="view-sub">Review past analyses, saved job listings, and your community report status.</p>
+          </div>
+          <div class="dashboard-actions">
+            <button class="cyber-btn secondary-btn" onclick="dashboard.exportHistory('csv')">Export CSV</button>
+            <button class="cyber-btn secondary-btn" onclick="dashboard.exportHistory('json')">Export JSON</button>
+            <button class="cyber-btn danger-outline-btn" onclick="dashboard.clearAllHistory()">Clear Vault</button>
+          </div>
+        </div>
+
+        <!-- Dashboard Stats Row -->
+        <div class="stats-overview-grid">
+          <div class="stat-tile">
+            <div class="tile-num" id="dash-total-scans">0</div>
+            <div class="tile-label">Total Jobs Scanned</div>
+          </div>
+          <div class="stat-tile red-tile">
+            <div class="tile-num" id="dash-high-risk">0</div>
+            <div class="tile-label">High-Risk Scams Avoided</div>
+          </div>
+          <div class="stat-tile green-tile">
+            <div class="tile-num" id="dash-legit-jobs">0</div>
+            <div class="tile-label">Low-Risk Safe Postings</div>
+          </div>
+          <div class="stat-tile gold-tile">
+            <div class="tile-num" id="dash-reports-submitted">0</div>
+            <div class="tile-label">Community Reports Filed</div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="table-filter-bar">
+          <div class="search-input-box">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="dash-search-input" placeholder="Search by job title or company..." oninput="dashboard.filterHistory()">
+          </div>
+          <div class="filter-dropdowns">
+            <select id="dash-risk-filter" class="cyber-select" onchange="dashboard.filterHistory()">
+              <option value="all">All Risk Levels</option>
+              <option value="high">High & Very High Risk (60-100)</option>
+              <option value="medium">Medium Risk (30-59)</option>
+              <option value="low">Low Risk (0-29)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="card-glass table-card">
+          <div class="table-responsive">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Risk Score</th>
+                  <th>Risk Level</th>
+                  <th>Top Detected Red Flag</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 5: SCAM EDUCATION HUB
+      ======================================================== -->
+      <section id="page-education" class="view-page">
+        <div class="page-title-bar">
+          <div>
+            <h2 class="view-heading">Student Job Scam Academy</h2>
+            <p class="view-sub">Learn to independently spot fake internships, recruiter impersonations, and financial traps.</p>
+          </div>
+        </div>
+
+        <!-- Educational Category Grid -->
+        <div class="education-grid">
+          <div class="edu-card">
+            <div class="edu-icon red-icon">💸</div>
+            <h3>1. The Upfront Fee Scam</h3>
+            <p>Scammers promise a high stipend or immediate job offer but insist you pay for a "software license," "registration ID," "training kit," or "background check."</p>
+            <div class="edu-rule"><strong>Rule of thumb:</strong> Legitimate companies absorb all training, software, and hardware costs. If you pay to work, it is a scam.</div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-icon gold-icon">📱</div>
+            <h3>2. The Telegram Task Scam</h3>
+            <p>Presents as "part-time data entry," "product liking," or "hotel rating." They pay small initial amounts (₹150 to ₹500) to build trust, then demand a deposit of ₹5,000+ to "unlock withdrawal."</p>
+            <div class="edu-rule"><strong>Rule of thumb:</strong> No legitimate enterprise uses Telegram or WhatsApp to disburse daily commissions.</div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-icon blue-icon">🎭</div>
+            <h3>3. Brand Impersonation</h3>
+            <p>Scammers copy logos, executive names, and job descriptions from Google, Microsoft, Amazon, or TCS. However, they use spoofed emails (e.g. <code>careers-microsoft@gmail.com</code> or <code>tcs-hiring.top</code>).</p>
+            <div class="edu-rule"><strong>Rule of thumb:</strong> Always cross-check the job ID on the official company careers portal (e.g. <code>careers.google.com</code>).</div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-icon maroon-icon">📄</div>
+            <h3>4. Identity & Banking Harvesting</h3>
+            <p>Demands clear scans of your passport, driver's license, Aadhaar card, or bank account statements *before* an interview has even taken place.</p>
+            <div class="edu-rule"><strong>Rule of thumb:</strong> Tax and identity documents are only collected *after* a formal signed contract is in place.</div>
+          </div>
+        </div>
+
+        <!-- Safe Application Checklist -->
+        <div class="card-glass checklist-card">
+          <div class="card-header">
+            <h3>Student Safe Application 6-Point Checklist</h3>
+          </div>
+          <div class="checklist-grid">
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>1. Check if recruiter email domain exactly matches the company's verified domain (e.g., @accenture.com vs @gmail.com).</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>2. Verify the listing is published on the official company career portal.</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>3. Ensure at least one face-to-face or video interview takes place on an enterprise platform.</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>4. Never send payment for application forms, uniforms, laptops, or bond guarantees.</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>5. Never share one-time passwords (OTPs), bank passwords, or UPI credentials.</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" checked disabled>
+              <span>6. Search online for "[Company Name] scam" or recruiter phone numbers on community boards.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Emergency Recourse Guide -->
+        <div class="card-glass emergency-card">
+          <div class="card-header">
+            <div class="emergency-badge">EMERGENCY PROTOCOL</div>
+            <h3>What to do if you already sent money or personal documents</h3>
+          </div>
+          <div class="emergency-steps">
+            <div class="step-box">
+              <span class="step-num">01</span>
+              <h4>Call Your Bank Immediately</h4>
+              <p>Request an immediate freeze on recent UPI transactions or block your credit/debit cards to halt further deductions.</p>
+            </div>
+            <div class="step-box">
+              <span class="step-num">02</span>
+              <h4>File Official Cybercrime Complaint</h4>
+              <p>In India, dial <strong>1930</strong> or register at <a href="https://cybercrime.gov.in" target="_blank" class="glow-link">cybercrime.gov.in</a>. In the US, report to <a href="https://ic3.gov" target="_blank" class="glow-link">IC3.gov</a>.</p>
+            </div>
+            <div class="step-box">
+              <span class="step-num">03</span>
+              <h4>Preserve All Evidence</h4>
+              <p>Take screenshots of chat transcripts, phone numbers, UPI transaction IDs, emails, and job description links before the scammer deletes them.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 6: REPORT SCAM FORM
+      ======================================================== -->
+      <section id="page-report" class="view-page">
+        <div class="page-title-bar">
+          <div>
+            <h2 class="view-heading">Submit Suspicious Job Report</h2>
+            <p class="view-sub">Protect fellow students by contributing to our verified community threat intelligence.</p>
+          </div>
+        </div>
+
+        <div class="report-form-container">
+          <div class="card-glass report-card">
+            <form id="community-report-form" onsubmit="app.handleReportSubmit(event)">
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label for="report-title">Job Title Reported <span class="required">*</span></label>
+                  <input type="text" id="report-title" class="cyber-input" placeholder="e.g. Remote Content Moderator" required>
+                </div>
+                <div class="form-group">
+                  <label for="report-company">Company Name Stated <span class="required">*</span></label>
+                  <input type="text" id="report-company" class="cyber-input" placeholder="e.g. Apex Global Tech" required>
+                </div>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label for="report-category">Scam Classification <span class="required">*</span></label>
+                  <select id="report-category" class="cyber-select" required>
+                    <option value="upfront_fee">Upfront Registration / Equipment Fee</option>
+                    <option value="telegram_task">Telegram / WhatsApp Task Scam</option>
+                    <option value="impersonation">Recruiter & Company Impersonation</option>
+                    <option value="phishing">Identity Theft / Phishing Form</option>
+                    <option value="fake_check">Fake Check / Overpayment Scam</option>
+                    <option value="other">Other Suspicious Behavior</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="report-handle">Scammer Contact / Payment Handle</label>
+                  <input type="text" id="report-handle" class="cyber-input" placeholder="e.g. Telegram: @hr_offer24, UPI: scam@okaxis">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="report-description">Detailed Incident Narrative <span class="required">*</span></label>
+                <textarea id="report-description" class="cyber-textarea" rows="6" placeholder="Describe the sequence of events: What was requested? How much money was asked? What communication channels were used?" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Evidence Files (Screenshots, PDFs, Chat Exports)</label>
+                <div class="file-dropzone" onclick="document.getElementById('report-file-input').click()">
+                  <input type="file" id="report-file-input" accept="image/*,.pdf" style="display:none;" onchange="app.handleReportFileUpload(this)">
+                  <div class="dropzone-content" id="report-file-status">
+                    <p class="dropzone-text">Upload chat transcripts, payment slips, or fraudulent offer letters</p>
+                    <span class="dropzone-hint">Personal PII is automatically sanitized before moderation review</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="policy-notice">
+                <input type="checkbox" id="report-consent" required>
+                <label for="report-consent">
+                  I confirm this report represents a genuine suspicious encounter. I understand false malicious reports violate community terms.
+                </label>
+              </div>
+
+              <div class="form-footer-actions">
+                <button type="submit" class="cyber-btn primary-glow-btn">
+                  <span>Submit to Moderation Queue</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 7: ADMINISTRATOR OPS & MODEL CONTROL PANEL
+      ======================================================== -->
+      <section id="page-admin" class="view-page">
+        <div class="page-title-bar">
+          <div>
+            <div class="admin-pill">ADMINISTRATOR CONSOLE</div>
+            <h2 class="view-heading">Model Oversight & Threat Intelligence</h2>
+            <p class="view-sub">Review community reports, tune ML decision thresholds, and inspect domain reputation.</p>
+          </div>
+          <div class="admin-top-actions">
+            <button class="cyber-btn secondary-btn" onclick="adminPanel.simulateRetrain()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M23 4v6h-6"></path>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+              <span>Retrain ML Classifier</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Admin Metrics Cards -->
+        <div class="admin-metrics-grid">
+          <div class="admin-stat-card">
+            <div class="metric-val gold-val">94.8%</div>
+            <div class="metric-lbl">Scam Recall Rate</div>
+            <div class="metric-sub">Caught 398 / 420 test scams</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="metric-val blue-val">91.2%</div>
+            <div class="metric-lbl">Precision Score</div>
+            <div class="metric-sub">Low false positive rate</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="metric-val maroon-val">0.93</div>
+            <div class="metric-lbl">F1 Balanced Score</div>
+            <div class="metric-sub">Logistic Regression + TF-IDF</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="metric-val green-val">12 ms</div>
+            <div class="metric-lbl">Inference Latency</div>
+            <div class="metric-sub">Fast hybrid pipeline</div>
+          </div>
+        </div>
+
+        <!-- Threshold Control & Confusion Matrix -->
+        <div class="admin-two-col">
+          <!-- Threshold Slider Card -->
+          <div class="card-glass admin-card">
+            <div class="card-header">
+              <h3>Dynamic Decision-Support Thresholds</h3>
+            </div>
+            <div class="threshold-control-box">
+              <div class="threshold-group">
+                <div class="slider-header">
+                  <span>High-Risk Alert Cutoff:</span>
+                  <strong class="color-crimson" id="threshold-val">60 Risk Score</strong>
+                </div>
+                <input type="range" id="threshold-slider" min="40" max="80" value="60" class="cyber-slider" oninput="adminPanel.updateThreshold(this.value)">
+                <div class="slider-notes">Lowering threshold prioritizes student safety; raising threshold reduces false positives.</div>
+              </div>
+
+              <div class="score-weights-box">
+                <h4>Hybrid Score Weights</h4>
+                <div class="weight-row">
+                  <span>ML NLP Model:</span>
+                  <div class="weight-track"><div class="weight-fill fill-blue" style="width: 50%;"></div></div>
+                  <strong>50%</strong>
+                </div>
+                <div class="weight-row">
+                  <span>Rule-Based Heuristics:</span>
+                  <div class="weight-track"><div class="weight-fill fill-maroon" style="width: 30%;"></div></div>
+                  <strong>30%</strong>
+                </div>
+                <div class="weight-row">
+                  <span>Domain Verification:</span>
+                  <div class="weight-track"><div class="weight-fill fill-gold" style="width: 20%;"></div></div>
+                  <strong>20%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confusion Matrix Visualization -->
+          <div class="card-glass admin-card">
+            <div class="card-header">
+              <h3>Validation Confusion Matrix (Test Corpus)</h3>
+            </div>
+            <div class="confusion-matrix-grid">
+              <div class="cm-cell cm-header"></div>
+              <div class="cm-cell cm-header">PREDICTED SAFE</div>
+              <div class="cm-cell cm-header">PREDICTED SCAM</div>
+
+              <div class="cm-cell cm-label">ACTUAL SAFE</div>
+              <div class="cm-cell cm-tp">
+                <span class="cm-num">842</span>
+                <span class="cm-desc">True Negatives</span>
+              </div>
+              <div class="cm-cell cm-fp">
+                <span class="cm-num">38</span>
+                <span class="cm-desc">False Positives</span>
+              </div>
+
+              <div class="cm-cell cm-label">ACTUAL SCAM</div>
+              <div class="cm-cell cm-fn">
+                <span class="cm-num">22</span>
+                <span class="cm-desc">False Negatives</span>
+              </div>
+              <div class="cm-cell cm-tn">
+                <span class="cm-num">398</span>
+                <span class="cm-desc">True Positives</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Reports Moderation Queue -->
+        <div class="card-glass admin-card full-width-card">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="gold-dot"></span>
+              <h3>Pending Student Scam Reports Queue</h3>
+            </div>
+            <span class="badge-count" id="admin-pending-count">3 Pending</span>
+          </div>
+          <div class="table-responsive">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Report ID</th>
+                  <th>Job Title & Company</th>
+                  <th>Category</th>
+                  <th>Scammer Handle</th>
+                  <th>Student Narrative</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-reports-table-body">
+                <!-- Populated via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Suspicious Domain Blacklist & Reputation Management -->
+        <div class="card-glass admin-card full-width-card">
+          <div class="card-header">
+            <h3>Verified High-Risk Domains & Phishing Hosts</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Domain</th>
+                  <th>Reputation Flag</th>
+                  <th>Incidents Reported</th>
+                  <th>Last Seen</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="domain-table-body">
+                <tr>
+                  <td><code>careers-google-verify.top</code></td>
+                  <td><span class="tag-crimson">Spoofed Domain</span></td>
+                  <td>14 reports</td>
+                  <td>2 hrs ago</td>
+                  <td><span class="status-active">Blocked</span></td>
+                </tr>
+                <tr>
+                  <td><code>telegram.me/global_hr_task</code></td>
+                  <td><span class="tag-crimson">Task Scam Channel</span></td>
+                  <td>29 reports</td>
+                  <td>Today</td>
+                  <td><span class="status-active">Blocked</span></td>
+                </tr>
+                <tr>
+                  <td><code>infosys-onboarding.xyz</code></td>
+                  <td><span class="tag-crimson">Credential Harvester</span></td>
+                  <td>8 reports</td>
+                  <td>Yesterday</td>
+                  <td><span class="status-active">Blocked</span></td>
+                </tr>
+                <tr>
+                  <td><code>amazon-workfromhome.club</code></td>
+                  <td><span class="tag-crimson">Advance Fee Fraud</span></td>
+                  <td>42 reports</td>
+                  <td>3 days ago</td>
+                  <td><span class="status-active">Blocked</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-brand">SENTINELGUARD AI • DECISION-SUPPORT SYSTEM</div>
+          <p class="footer-disclaimer">
+            Academic Decision-Support Framework for Student Protection. SentinelGuard calculates risk probabilities 
+            to assist informed judgment. It does not issue definitive legal accusations. Always independently verify 
+            employment contracts through official company channels.
+          </p>
+        </div>
+        <div class="footer-right">
+          <div class="privacy-note">
+            <span>🛡️ End-to-End Privacy:</span> No Aadhaar, SSN, or banking credentials stored.
+          </div>
+          <div class="footer-links">
+            <a href="#analyze" onclick="app.navigate('analyze')">Analyzer</a>
+            <a href="#education" onclick="app.navigate('education')">Scam Academy</a>
+            <a href="#report" onclick="app.navigate('report')">Report Fraud</a>
+            <a href="#admin" onclick="app.navigate('admin')">Admin</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Report Modal Dialog -->
+  <div id="report-modal" class="modal-backdrop" onclick="app.closeReportModal(event)">
+    <div class="modal-box card-glass" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Report Current Listing as Scam</h3>
+        <button class="modal-close-btn" onclick="app.closeReportModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This listing's details will be flagged and pushed to the community moderation queue.</p>
+        <div class="form-group">
+          <label>Reason for Reporting</label>
+          <select id="modal-report-reason" class="cyber-select">
+            <option value="fee">They demanded registration or laptop money</option>
+            <option value="telegram">They forced communication to Telegram/WhatsApp</option>
+            <option value="impersonation">Recruiter email does not match official company</option>
+            <option value="phishing">They asked for bank OTP or password</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Additional Notes / Scammer Handle</label>
+          <input type="text" id="modal-report-notes" class="cyber-input" placeholder="e.g. Recruiter username or payment phone number">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="cyber-btn secondary-btn" onclick="app.closeReportModal()">Cancel</button>
+        <button class="cyber-btn primary-glow-btn" onclick="app.confirmModalReport()">Submit Flag</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="toast-stack"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/canvas-bg.js"></script>
+  <script src="js/samples.js"></script>
+  <script src="js/hybrid-detector.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
